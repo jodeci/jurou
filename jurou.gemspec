@@ -1,8 +1,9 @@
 $:.push File.expand_path("../lib", __FILE__)
 Gem::Specification.new do |spec|
   spec.name = "jurou"
-  spec.version = "0.0.4"
+  spec.version = "0.0.5"
   spec.date = "2016-10-28"
+  spec.description = "very early devlopment, use at own risk XD"
   spec.summary = "i18n view helpers"
   spec.authors = ["Tsehau Chao"]
   spec.email = ["jodeci@5xruby.tw"]
