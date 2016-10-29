@@ -1,6 +1,6 @@
 module Jurou
   module ViewHelpers
-    def jr_collection (attribute, model = nil)
+    def jr_collection(attribute, model = nil)
       jr_init_model(model)
       I18n.t("jurou.#{@_model}.#{attribute}").invert
     end
