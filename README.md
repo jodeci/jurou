@@ -2,6 +2,12 @@
 
 A collection of i18n related view helpers for Rails. Work in progress.
 
+Lets say we have a model `Book`. `Book.genre` is a pre defined list of book genres, such as `fantasy, detective, romance, history, manga`. 
+
+Most developers stick to English (at least the Latin alphabet) for such values. The thing is, your app more than often requires you to display them as `奇幻, 推理, 羅曼史, 歷史, 漫畫` or whatever your native language. 
+
+Turns out this was a messier process than I imagined. To keep things DRY I put together Jurou for myself.
+
 ## Installation
 
 Tested on Ruby 2.3.1 and Rails 5.
@@ -23,10 +29,6 @@ $ rails generate jurou:install --locale ja
 ```
 
 ## Examples
-
-Lets say we have a model `Book`. `Book.genre` is a pre defined list of book genres, such as `fantasy, detective, romance, history, manga`. 
-
-Most developers stick to English (at least the Latin alphabet) for theses values. The thing is, your app more than often requires you to display the list as `奇幻, 推理, 羅曼史, 歷史, 漫畫`. This is where Jurou （翻譯蒟蒻） comes in.
 
 Fill in the details in the generated locale file:
 
@@ -51,7 +53,7 @@ Use `jr_collection` in your form template:
   = f.input :genre, collection: jr_collection(:genre, :book)
 ```
 
-Jurou will then generate the translated hash, resulting in the following HTML:
+Jurou will then generate the collection hash for the form helper, resulting in the following HTML:
 
 ```
 <select>

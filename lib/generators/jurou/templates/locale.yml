@@ -1,6 +1,9 @@
 #zh-TW:
 #  jurou:
-#    user:
-#      roles:
-#        admin: 系統管理員
-#        employee: 員工
+#    book:
+#      genre:
+#        fantasy: 奇幻
+#        detective: 推理
+#        romance: 羅曼史
+#        history: 歷史
+#        manga: 漫畫
