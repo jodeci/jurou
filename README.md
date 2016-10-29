@@ -6,7 +6,7 @@ Lets say we have a model `Book`. `Book.genre` is a pre defined list of book genr
 
 Most developers stick to English (at least the Latin alphabet) for such values. The thing is, your app more than often requires you to display them as `奇幻, 推理, 羅曼史, 歷史, 漫畫` or whatever your native language. 
 
-Turns out this was a messier process than I imagined. To keep things DRY I put together Jurou for myself.
+Although there's the handy I18n API for localization, turns out this was still a messier process than I imagined. To keep things DRY I put together Jurou for myself.
 
 ## Installation
 
@@ -58,7 +58,7 @@ Use `jr_collection` in your form template:
 ```
 # app/views/books/_form.html.slim
 = simple_form_for @book do |f|
-  = f.input :genre, collection: jr_collection(:genre, @book)
+  = f.input :genre, collection: jr_collection(:genre, :book)
 ```
 
 Jurou will then generate the collection hash for the form helper, resulting in the following HTML:
