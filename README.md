@@ -43,14 +43,22 @@ zh-TW:
         romance: 羅曼史
         history: 歷史
         manga: 漫畫
+        
+  activerecord:
+    attributes:
+      book:
+        title: 書名
+        author: 作者
+        genre: 類別
 ```
+### jr\_collection
 
 Use `jr_collection` in your form template:
 
 ```
 # app/views/books/_form.html.slim
 = simple_form_for @book do |f|
-  = f.input :genre, collection: jr_collection(:genre, :book)
+  = f.input :genre, collection: jr_collection(:genre, @book)
 ```
 
 Jurou will then generate the collection hash for the form helper, resulting in the following HTML:
@@ -65,4 +73,52 @@ Jurou will then generate the collection hash for the form helper, resulting in t
 </select>
 ```
 
-A few more to come.
+### jr\_table\_row
+
+Shorthand `jr_row` also available. 
+
+```
+# app/views/books/show.html.slim
+table
+  = jr_table_row :title, :book, @book.title
+  = jr_table_row :author, :book, @book.author
+  = jr_table_row :genre, :book, @book.genre, true
+```
+
+This will produce the following HTML:
+
+```
+<table>
+  <tr>
+    <th>書名</th>
+    <td>神探伽利略</td>
+  </tr>
+  <tr>
+    <th>作者</th>
+    <td>東野圭吾</td>
+  </tr>
+  <tr>
+    <th>類別</th>
+    <td>推理</td>
+  </tr>
+</table>
+```
+
+### jr\_attribute and jr\_vaule
+
+You can use `jr_attribute` and  `jr_value`
+ individually.
+ 
+`jr_attribute` simply outputs the corresponding translation of the attribute. Shorthand `jr_attr` also available.
+
+```
+jr_attribute :author, :book
+=> 作者
+```
+
+`jr_value` is only useful when you need to get the translation for the attribute value itself. 
+
+```
+jr_value :genre, :book, @book.genre
+=> 推理
+```

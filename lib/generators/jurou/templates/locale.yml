@@ -7,3 +7,10 @@
 #        romance: 羅曼史
 #        history: 歷史
 #        manga: 漫畫
+#
+#  activerecord:
+#    attributes:
+#      book:
+#        title: 書名
+#        author: 作者
+#        genre: 類別
