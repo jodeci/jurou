@@ -1,0 +1,10 @@
+zh-TW:
+  jurou:
+    book:
+      genre:
+        fantasy: 奇幻
+
+  activerecord:
+    attributes:
+      book:
+        genre: 類別
