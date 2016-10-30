@@ -7,4 +7,5 @@ zh-TW:
   activerecord:
     attributes:
       book:
+        author: 作者
         genre: 類別
