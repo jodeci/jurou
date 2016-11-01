@@ -23,7 +23,7 @@ describe Jurou::ViewHelpers do
     expect(@helper.jr_value(:genre, :book, :fantasy)).to eq "奇幻"
   end
 
-  context "jr_table_row" do
+  context "jr_table_row should generate the correct HTML" do
     it "without translation" do
       expect(@helper.jr_table_row(:author, :book, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
     end
