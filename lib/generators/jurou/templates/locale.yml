@@ -8,6 +8,12 @@
 #        history: 歷史
 #        manga: 漫畫
 #
+#    app_title: 翻譯蒟蒻
+#
+#    page_titles:
+#      book:
+#        index: 書籍列表
+#
 #  activerecord:
 #    attributes:
 #      book:

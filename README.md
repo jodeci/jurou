@@ -44,6 +44,12 @@ zh-TW:
         history: 歷史
         manga: 漫畫
         
+    app_title: 翻譯蒟蒻
+    
+    page_titles:
+      book:
+        index: 書籍列表
+        
   activerecord:
     attributes:
       book:
@@ -121,4 +127,18 @@ jr_attribute :author, :book
 ```
 jr_value :genre, :book, @book.genre
 => 推理
+```
+
+## jr\_page\_title
+
+`jr_page_title` generates the page title based on the current controller and action. It will fall back to your app title when there is no match.
+
+```
+# GET /books/
+= jr_page_title
+=> 書籍列表 | 翻譯蒟蒻
+
+# GET /movies
+= jr_page_title
+=> 翻譯蒟蒻
 ```

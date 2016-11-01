@@ -1,5 +1,11 @@
 module Jurou
   module ViewHelpers
+    def jr_page_title(title = "jurou.app_title", divider = "|")
+      "#{t(jr_page_title_translation_key, raise: true)} #{divider} #{t(title)}"
+    rescue
+      t(title)
+    end
+
     def jr_collection(attribute, model = nil)
       jr_init_model(model)
       I18n.t("jurou.#{@_model}.#{attribute}").invert
@@ -38,6 +44,10 @@ module Jurou
       else
         value
       end
+    end
+
+    def jr_page_title_translation_key
+      :"jurou.page_titles.#{controller_path}.#{action_name}"
     end
 
     def current_object?

@@ -4,8 +4,17 @@ zh-TW:
       genre:
         fantasy: 奇幻
 
+    app_title: 翻譯蒟蒻
+
+    page_titles:
+      book:
+        index: 書籍列表
+
   activerecord:
     attributes:
       book:
         author: 作者
         genre: 類別
+
+      movie:
+        director: 導演
