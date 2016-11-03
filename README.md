@@ -49,6 +49,7 @@ zh-TW:
     page_titles:
       book:
         index: 書籍列表
+        edit: 修改書籍
         
   activerecord:
     attributes:
@@ -138,11 +139,9 @@ jr_value :genre, :book, @book.genre
 = title content_for?(:jr_title) ? yield(:jr_title) : jr_page_title
 
 # GET /books/
-= jr_page_title
 => "書籍列表 | 翻譯蒟蒻"
 
 # GET /movies
-= jr_page_title
 => "翻譯蒟蒻"
 ```
 
