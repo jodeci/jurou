@@ -11,7 +11,8 @@
 #    app_title: 翻譯蒟蒻
 #
 #    page_titles:
-#      book:
+#      books:
+#        _label: 我的書櫃
 #        index: 書籍列表
 #
 #  activerecord:

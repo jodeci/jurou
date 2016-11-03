@@ -7,9 +7,13 @@ zh-TW:
     app_title: 翻譯蒟蒻
 
     page_titles:
-      book:
+      books:
+        _label: 我的書櫃
         index: 書籍列表
         edit: 修改書籍
+
+      admin/sales:
+        index: 銷售管理
 
   activerecord:
     attributes:

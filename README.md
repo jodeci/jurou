@@ -47,9 +47,12 @@ zh-TW:
     app_title: 翻譯蒟蒻
     
     page_titles:
-      book:
+      books:
+        _label: 我的書櫃
         index: 書籍列表
         edit: 修改書籍
+      admin/sales:
+        index: 銷售紀錄
         
   activerecord:
     attributes:
@@ -80,9 +83,27 @@ Jurou will then generate the collection hash for the form helper, resulting in t
 </select>
 ```
 
+### jr\_attribute
+ 
+`jr_attribute` simply outputs the corresponding translation of the attribute. Shorthand `jr_attr` also available.
+
+```
+jr_attribute :author, :book
+=> 作者
+```
+
+### jr\_vaule
+
+`jr_value` is only useful when you need to get the translation for the attribute value itself. 
+
+```
+jr_value :genre, :book, @book.genre
+=> 推理
+```
+
 ### jr\_table\_row
 
-Shorthand `jr_row` also available. 
+Or, if you're lazy enough like me, there's also `jr_table_row` which takes advantage of `jr_attribute` and `jr_value` to make a quick and dirty table display. Shorthand `jr_row` also available. 
 
 ```
 # app/views/books/show.html.slim
@@ -111,26 +132,7 @@ This will produce the following HTML:
 </table>
 ```
 
-### jr\_attribute and jr\_vaule
-
-You can use `jr_attribute` and  `jr_value`
- individually.
- 
-`jr_attribute` simply outputs the corresponding translation of the attribute. Shorthand `jr_attr` also available.
-
-```
-jr_attribute :author, :book
-=> 作者
-```
-
-`jr_value` is only useful when you need to get the translation for the attribute value itself. 
-
-```
-jr_value :genre, :book, @book.genre
-=> 推理
-```
-
-## jr\_page\_title and jr\_content\_for\_page\_title
+### jr\_page\_title 
 
 `jr_page_title` generates the page title based on the current controller and action. It will fall back to your app title when there is no match.
  
@@ -138,12 +140,13 @@ jr_value :genre, :book, @book.genre
 # app/views/layout/application.html.slim
 = title content_for?(:jr_title) ? yield(:jr_title) : jr_page_title
 
-# GET /books/
+# BooksController#index
 => "書籍列表 | 翻譯蒟蒻"
 
-# GET /movies
+# MoviesController#index
 => "翻譯蒟蒻"
 ```
+### jr\_content\_for_page\_title
 
 You can further customize the title with `jr_content_for_page_title`, or `jr_title`
  for short.
@@ -152,6 +155,24 @@ You can further customize the title with `jr_content_for_page_title`, or `jr_tit
 # app/views/books/edit.html.slim
 = jr_content_for_page_title("神探伽利略")
 
-# GET /books/1/edit
+# BooksController#edit
 => "神探伽利略 | 修改書籍 | 翻譯蒟蒻"
+```
+
+### jr\_simple\_title
+Use `jr_simple_title` when you need to manually get a page title, instead of relying on the black magic of `jr_page_title`. The app title will not be included. Comes in handy when building dropdown menus.
+
+```
+= jr_simple_title(:books, :index)
+=> "書籍列表"
+
+# controller with namespace
+= jr_simple_title("admin/sales", :index)
+=> "銷售管理"
+```
+You can also set a general `_label` for the entire controller in your locale file.
+
+```
+= jr_simple_title(:books)
+=> "我的書櫃"
 ```

@@ -20,7 +20,7 @@ describe Jurou::ViewHelpers do
 
     context "when the locale file does not have matching data" do
       it "should raise an error" do
-        expect { @helper.jr_collection(:genre, :movie) }.to raise_error(NoMethodError)
+        expect { @helper.jr_collection(:no_attribute, :no_model) }.to raise_error(NoMethodError)
       end
     end
   end
@@ -40,7 +40,7 @@ describe Jurou::ViewHelpers do
 
     context "when the locale file does not have matching data" do
       it "should return an error message" do
-        expect(@helper.jr_attribute(:title, :movie)).to eq "translation missing: zh-TW.activerecord.attributes.movie.title"
+        expect(@helper.jr_attribute(:no_attribute, :no_model)).to match /\Atranslation missing:/
       end
     end
 
@@ -61,7 +61,7 @@ describe Jurou::ViewHelpers do
 
     context "when the locale file does not have matching data" do
       it "should return an error message" do
-        expect(@helper.jr_value(:genre, :book, :magazine)).to eq "translation missing: zh-TW.jurou.book.genre.magazine"
+        expect(@helper.jr_value(:no_attribute, :no_model, :no_value)).to match /\Atranslation missing:/
       end
     end
   end
@@ -83,14 +83,14 @@ describe Jurou::ViewHelpers do
   describe "#jr_page_title" do
     context "when the locale file has the matching data" do
       it "should generate the title based on the current controller and action" do
-        @helper_title = Jurou::RailsTestHelper.new("index")
-        expect(@helper_title.jr_page_title).to eq "書籍列表 | 翻譯蒟蒻"
+        @helper_title = Jurou::RailsTestHelper.new("index", "admin/sales")
+        expect(@helper_title.jr_page_title).to eq "銷售管理 | 翻譯蒟蒻"
       end
     end
 
     context "when the locale file does not have matching data" do
       it "should fall back to the app title" do
-        @helper_title = Jurou::RailsTestHelper.new("new")
+        @helper_title = Jurou::RailsTestHelper.new("no_action", "no_controller")
         expect(@helper_title.jr_page_title).to eq "翻譯蒟蒻"
       end
     end
@@ -100,13 +100,33 @@ describe Jurou::ViewHelpers do
     before(:each) { @helper_title = Jurou::RailsTestHelper.new("edit") }
     context "when given a value" do
       it "should prepend to #jr_page_title" do
-        expect(@helper_title.jr_content_for_page_title("Harry Potter")).to eq "Harry Potter | 修改書籍 | 翻譯蒟蒻"
+        expect(@helper_title.jr_content_for_page_title("神探伽利略")).to eq "神探伽利略 | 修改書籍 | 翻譯蒟蒻"
       end
     end
 
     context "when not given a value" do
       it "should fall back to #jr_page_title" do
         expect(@helper_title.jr_content_for_page_title).to eq "修改書籍 | 翻譯蒟蒻"
+      end
+    end
+  end
+
+  describe "#jr_simple_title" do
+    context "when the locale file has the matching data" do
+      it "should translate the value" do
+        expect(@helper.jr_simple_title("admin/sales", :index)).to eq "銷售管理"
+      end
+    end
+
+    context "when only given the controller name" do
+      it "should translate with _label" do
+        expect(@helper.jr_simple_title(:books)).to eq "我的書櫃"
+      end
+    end
+
+    context "when the locale file does not have matching data" do
+      it "should return an error message" do
+        expect(@helper.jr_simple_title(:no_controller, :no_action)).to match /\Atranslation missing:/
       end
     end
   end

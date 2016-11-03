@@ -6,7 +6,7 @@ module Jurou
     include ActionView::Helpers
     include ActionView::Context
 
-    def initialize(action = nil, controller = "book", current_object = "book")
+    def initialize(action = nil, controller = "books", current_object = "book")
       @_jr_controller = controller
       @_jr_action = action
       unless current_object.nil?

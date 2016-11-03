@@ -17,6 +17,10 @@ module Jurou
     end
     alias_method :jr_title, :jr_content_for_page_title
 
+    def jr_simple_title(controller, action = :_label)
+      I18n.t(jr_page_title_translation_key(controller, action))
+    end
+
     def jr_collection(attribute, model = nil)
       jr_init_model(model)
       I18n.t("jurou.#{@_model}.#{attribute}").invert
@@ -56,8 +60,8 @@ module Jurou
       end
     end
 
-    def jr_page_title_translation_key
-      :"jurou.page_titles.#{controller_path}.#{action_name}"
+    def jr_page_title_translation_key(controller = controller_path, action = action_name)
+      :"jurou.page_titles.#{controller}.#{action}"
     end
 
     def current_object?
