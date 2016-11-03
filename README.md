@@ -129,16 +129,30 @@ jr_value :genre, :book, @book.genre
 => 推理
 ```
 
-## jr\_page\_title
+## jr\_page\_title and jr\_content\_for\_page\_title
 
 `jr_page_title` generates the page title based on the current controller and action. It will fall back to your app title when there is no match.
-
+ 
 ```
+# app/views/layout/application.html.slim
+= title content_for?(:jr_title) ? yield(:jr_title) : jr_page_title
+
 # GET /books/
 = jr_page_title
-=> 書籍列表 | 翻譯蒟蒻
+=> "書籍列表 | 翻譯蒟蒻"
 
 # GET /movies
 = jr_page_title
-=> 翻譯蒟蒻
+=> "翻譯蒟蒻"
+```
+
+You can further customize the title with `jr_content_for_page_title`, or `jr_title`
+ for short.
+
+```
+# app/views/books/edit.html.slim
+= jr_content_for_page_title("神探伽利略")
+
+# GET /books/1/edit
+=> "神探伽利略 | 修改書籍 | 翻譯蒟蒻"
 ```

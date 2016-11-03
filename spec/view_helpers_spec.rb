@@ -95,4 +95,19 @@ describe Jurou::ViewHelpers do
       end
     end
   end
+
+  describe "#jr_content_for_page_title" do
+    before(:each) { @helper_title = Jurou::RailsTestHelper.new("edit") }
+    context "when given a value" do
+      it "should prepend to #jr_page_title" do
+        expect(@helper_title.jr_content_for_page_title("Harry Potter")).to eq "Harry Potter | 修改書籍 | 翻譯蒟蒻"
+      end
+    end
+
+    context "when not given a value" do
+      it "should fall back to #jr_page_title" do
+        expect(@helper_title.jr_content_for_page_title).to eq "修改書籍 | 翻譯蒟蒻"
+      end
+    end
+  end
 end

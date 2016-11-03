@@ -1,10 +1,21 @@
 module Jurou
   module ViewHelpers
-    def jr_page_title(title = "jurou.app_title", divider = "|")
-      "#{t(jr_page_title_translation_key, raise: true)} #{divider} #{t(title)}"
+    def jr_page_title(app_title = "jurou.app_title", divider = "|")
+      "#{t(jr_page_title_translation_key, raise: true)} #{divider} #{t(app_title)}"
     rescue
-      t(title)
+      t(app_title)
     end
+
+    def jr_content_for_page_title(text = nil, divider = "|")
+      content_for(:jr_title) do
+        if text.nil?
+          jr_page_title
+        else
+          "#{text} #{divider} #{jr_page_title}"
+        end
+      end
+    end
+    alias_method :jr_title, :jr_content_for_page_title
 
     def jr_collection(attribute, model = nil)
       jr_init_model(model)
@@ -18,19 +29,18 @@ module Jurou
         concat content_tag :td, jr_init_value(attribute, value, translate)
       end
     end
+    alias_method :jr_row, :jr_table_row
 
     def jr_attribute(attribute, model = nil)
       jr_init_model(model)
       I18n.t("activerecord.attributes.#{@_model}.#{attribute}")
     end
+    alias_method :jr_attr, :jr_attribute
 
     def jr_value(attribute, model = nil, value = nil)
       jr_init_model(model)
       I18n.t("jurou.#{@_model}.#{attribute}.#{value}")
     end
-
-    alias_method :jr_row, :jr_table_row
-    alias_method :jr_attr, :jr_attribute
 
     private
 

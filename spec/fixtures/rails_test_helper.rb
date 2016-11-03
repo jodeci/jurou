@@ -22,6 +22,16 @@ module Jurou
       @_jr_controller
     end
 
+    # we only need to return "content" for testing purposes
+    def content_for(name, content = nil, options = {}, &block)
+      if content || block_given?
+        if block_given?
+          options = content if content
+          content = capture(&block)
+        end
+      end
+    end
+
     # dependent on having a :current_object in the rails app
     # (hopefully will be implemented as a seperate gem)
     def current_object
