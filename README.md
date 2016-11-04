@@ -89,16 +89,16 @@ Jurou will then generate the collection hash for the form helper, resulting in t
 
 ```
 jr_attribute :author, :book
-=> 作者
+=> "作者"
 ```
 
-### jr\_vaule
+### jr\_value
 
 `jr_value` is only useful when you need to get the translation for the attribute value itself. 
 
 ```
 jr_value :genre, :book, @book.genre
-=> 推理
+=> "推理"
 ```
 
 ### jr\_table\_row
