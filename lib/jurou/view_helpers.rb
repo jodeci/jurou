@@ -17,7 +17,15 @@ module Jurou
     end
     alias_method :jr_title, :jr_content_for_page_title
 
-    def jr_simple_title(controller, action = :_label)
+    def jr_simple_title(controller = nil, action = nil)
+      if action.nil?
+        if controller.nil?
+          controller = controller_path
+          action = action_name
+        else
+          action = :_label
+        end
+      end
       I18n.t(jr_page_title_translation_key(controller, action))
     end
 

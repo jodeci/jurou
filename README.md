@@ -163,16 +163,19 @@ You can further customize the title with `jr_content_for_page_title`, or `jr_tit
 Use `jr_simple_title` when you need to manually get a page title, instead of relying on the black magic of `jr_page_title`. The app title will not be included. Comes in handy when building dropdown menus.
 
 ```
+# defaults to the current controller/action
+= jr_simple_title
+=> "書籍列表"
+
+# general label for a controller, same as jr_simple_title(:books, :_label)
+= jr_simple_title(:books)
+=> "我的書櫃"
+
+# specify controller and action
 = jr_simple_title(:books, :index)
 => "書籍列表"
 
 # controller with namespace
 = jr_simple_title("admin/sales", :index)
 => "銷售管理"
-```
-You can also set a general `_label` for the entire controller in your locale file.
-
-```
-= jr_simple_title(:books)
-=> "我的書櫃"
 ```

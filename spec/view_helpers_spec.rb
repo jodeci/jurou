@@ -124,6 +124,13 @@ describe Jurou::ViewHelpers do
       end
     end
 
+    context "when given no arguments" do
+      it "should default to the current controller and action" do
+        @helper_simple = Jurou::RailsTestHelper.new("edit", "books")
+        expect(@helper_simple.jr_simple_title).to eq "修改書籍"
+      end
+    end
+
     context "when the locale file does not have matching data" do
       it "should return an error message" do
         expect(@helper.jr_simple_title(:no_controller, :no_action)).to match /\Atranslation missing:/
