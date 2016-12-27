@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "jurou"
+require "simplecov"
+SimpleCov.start
