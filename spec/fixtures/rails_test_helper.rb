@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # monkey patching instead of creating a dummy app
 require "ostruct"
 module Jurou

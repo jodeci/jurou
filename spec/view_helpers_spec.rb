@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "jurou/view_helpers"
 require "i18n"
 require "action_view"
@@ -6,7 +7,7 @@ require_relative "fixtures/rails_test_helper"
 describe Jurou::ViewHelpers do
   before(:each) do
     I18n.config.available_locales = :"zh-TW"
-    I18n.locale= :"zh-TW"
+    I18n.locale = :"zh-TW"
     I18n.load_path << "spec/fixtures/zh-TW.yml"
     @helper = Jurou::RailsTestHelper.new
   end
@@ -14,7 +15,7 @@ describe Jurou::ViewHelpers do
   describe "#jr_collection" do
     context "when the locale file has the matching data" do
       it "should generate a translated hash" do
-        expect(@helper.jr_collection(:genre, :book)).to include({ "奇幻" => :fantasy })
+        expect(@helper.jr_collection(:genre, :book)).to include("奇幻" => :fantasy)
       end
     end
 
@@ -40,7 +41,7 @@ describe Jurou::ViewHelpers do
 
     context "when the locale file does not have matching data" do
       it "should return an error message" do
-        expect(@helper.jr_attribute(:no_attribute, :no_model)).to match /\Atranslation missing:/
+        expect(@helper.jr_attribute(:no_attribute, :no_model)).to match(/\Atranslation missing:/)
       end
     end
 
@@ -61,7 +62,7 @@ describe Jurou::ViewHelpers do
 
     context "when the locale file does not have matching data" do
       it "should return an error message" do
-        expect(@helper.jr_value(:no_attribute, :no_model, :no_value)).to match /\Atranslation missing:/
+        expect(@helper.jr_value(:no_attribute, :no_model, :no_value)).to match(/\Atranslation missing:/)
       end
     end
   end
@@ -69,7 +70,7 @@ describe Jurou::ViewHelpers do
   describe "#jr_table_row" do
     context "when the value does not need translation" do
       it "should generate HTML with the original value" do
-         expect(@helper.jr_table_row(:author, :book, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+        expect(@helper.jr_table_row(:author, :book, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
       end
     end
 
@@ -133,7 +134,7 @@ describe Jurou::ViewHelpers do
 
     context "when the locale file does not have matching data" do
       it "should return an error message" do
-        expect(@helper.jr_simple_title(:no_controller, :no_action)).to match /\Atranslation missing:/
+        expect(@helper.jr_simple_title(:no_controller, :no_action)).to match(/\Atranslation missing:/)
       end
     end
   end

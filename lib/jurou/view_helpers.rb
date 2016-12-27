@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Jurou
   module ViewHelpers
     def jr_page_title(app_title = "jurou.app_title", divider = "|")
@@ -15,7 +16,7 @@ module Jurou
         end
       end
     end
-    alias_method :jr_title, :jr_content_for_page_title
+    alias jr_title jr_content_for_page_title
 
     def jr_simple_title(controller = nil, action = nil)
       if action.nil?
@@ -41,13 +42,13 @@ module Jurou
         concat content_tag :td, jr_init_value(attribute, value, translate)
       end
     end
-    alias_method :jr_row, :jr_table_row
+    alias jr_row jr_table_row
 
     def jr_attribute(attribute, model = nil)
       jr_init_model(model)
       I18n.t("activerecord.attributes.#{@_model}.#{attribute}")
     end
-    alias_method :jr_attr, :jr_attribute
+    alias jr_attr jr_attribute
 
     def jr_value(attribute, model = nil, value = nil)
       jr_init_model(model)
@@ -74,7 +75,6 @@ module Jurou
 
     def current_object?
       current_object if respond_to? :current_object
-    rescue ActiveRecord::RecordNotFound
     end
   end
 end
