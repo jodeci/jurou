@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "LICENSE.txt", "README.md"]
   spec.license = "MIT"
 
-  spec.add_dependency "activesupport", "~> 4.1"
+  spec.add_dependency "activesupport", "~> 5.0"
   spec.add_dependency "actionview", "~> 5.0"
   spec.add_dependency "i18n", "~> 0.7"
   spec.add_dependency "shikigami", "~> 0.0.12"
