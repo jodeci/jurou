@@ -1,7 +1,8 @@
 # jurou / 翻譯蒟蒻
-
+[![Gem Version](https://badge.fury.io/rb/jurou.svg)](https://badge.fury.io/rb/jurou)
 [![Code Climate](https://codeclimate.com/github/jodeci/jurou/badges/gpa.svg)](https://codeclimate.com/github/jodeci/jurou)
-<a href="https://codeclimate.com/github/jodeci/jurou/coverage"><img src="https://codeclimate.com/github/jodeci/jurou/badges/coverage.svg" /></a>
+[![Test Coverage](https://codeclimate.com/github/jodeci/jurou/badges/coverage.svg)](https://codeclimate.com/github/jodeci/jurou/coverage)
+[![Build Status](https://travis-ci.org/jodeci/jurou.svg?branch=master)](https://travis-ci.org/jodeci/jurou)
 
 A collection of i18n related view helpers for Rails. Work in progress.
 
