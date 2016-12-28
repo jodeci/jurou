@@ -72,9 +72,5 @@ module Jurou
     def jr_page_title_translation_key(controller = controller_path, action = action_name)
       :"jurou.page_titles.#{controller}.#{action}"
     end
-
-    def current_object?
-      current_object if respond_to? :current_object
-    end
   end
 end
