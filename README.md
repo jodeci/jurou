@@ -1,4 +1,7 @@
-# Jurou / 翻譯蒟蒻
+# jurou / 翻譯蒟蒻
+
+[![Code Climate](https://codeclimate.com/github/jodeci/jurou/badges/gpa.svg)](https://codeclimate.com/github/jodeci/jurou)
+<a href="https://codeclimate.com/github/jodeci/jurou/coverage"><img src="https://codeclimate.com/github/jodeci/jurou/badges/coverage.svg" /></a>
 
 A collection of i18n related view helpers for Rails. Work in progress.
 
@@ -6,7 +9,7 @@ Lets say we have a model `Book`. `Book.genre` is a pre defined list of book genr
 
 Most developers stick to English (at least the Latin alphabet) for such values. The thing is, your app more than often requires you to display them as `奇幻, 推理, 羅曼史, 歷史, 漫畫` or whatever your native language. 
 
-Although there's the handy I18n API for localization, turns out this was still a messier process than I imagined. To keep things DRY I put together Jurou for myself.
+Although there's the handy I18n API for localization, turns out this was still a messier process than I imagined. To keep things DRY I put together *jurou* for myself.
 
 ## Installation
 
@@ -71,7 +74,7 @@ Use `jr_collection` in your form template:
   = f.input :genre, collection: jr_collection(:genre, :book)
 ```
 
-Jurou will then generate the collection hash for the form helper, resulting in the following HTML:
+*jurou* will then generate the collection hash for the form helper, resulting in the following HTML:
 
 ```
 <select>
