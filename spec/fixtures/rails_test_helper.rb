@@ -10,7 +10,7 @@ module Jurou
     def initialize(action = nil, controller = "books", current_object = "book")
       @_jr_controller = controller
       @_jr_action = action
-      unless current_object.nil?
+      if current_object
         @_jr_current_object = OpenStruct.new(model_name: OpenStruct.new(param_key: current_object))
       end
     end
@@ -33,8 +33,7 @@ module Jurou
       end
     end
 
-    # dependent on having a :current_object in the rails app
-    # (hopefully will be implemented as a seperate gem)
+    # from shikigami
     def current_object
       @_jr_current_object
     end

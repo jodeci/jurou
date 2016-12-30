@@ -9,22 +9,22 @@ module Jurou
 
     def jr_content_for_page_title(text = nil, divider = "|")
       content_for(:jr_title) do
-        if text.nil?
-          jr_page_title
-        else
+        if text
           "#{text} #{divider} #{jr_page_title}"
+        else
+          jr_page_title
         end
       end
     end
     alias jr_title jr_content_for_page_title
 
     def jr_simple_title(controller = nil, action = nil)
-      if action.nil?
-        if controller.nil?
+      unless action
+        if controller
+          action = :_label
+        else
           controller = controller_path
           action = action_name
-        else
-          action = :_label
         end
       end
       I18n.t(jr_page_title_translation_key(controller, action))
