@@ -101,20 +101,20 @@ jr_attribute :author, :book
 `jr_value` is only useful when you need to get the translation for the attribute value itself. 
 
 ```
-jr_value :genre, :book, @book.genre
+jr_value :genre, @book.genre, :book
 => "推理"
 ```
 
-### jr\_table\_row
+### jr\_table\_row\_for\_attribute, jr\_table\_row\_for\_option
 
-Or, if you're lazy enough like me, there's also `jr_table_row` which takes advantage of `jr_attribute` and `jr_value` to make a quick and dirty table display. Shorthand `jr_row` also available. 
+Or, if you're lazy enough like me, there's also `jr_table_row_attribute` and `jr_table_row_option` which takes advantage of `jr_attribute` and `jr_value` to make a quick and dirty table display. Shorthand `jr_row_attr` and `jr_row_opt` also available. 
 
 ```
 # app/views/books/show.html.slim
 table
-  = jr_table_row :title, :book, @book.title
-  = jr_table_row :author, :book, @book.author
-  = jr_table_row :genre, :book, @book.genre, true
+  = jr_table_row_for_attribute :title, @book.title, :book
+  = jr_table_row_for_attribute :author, @book.author, :book
+  = jr_table_row_for_option :genre, @book.genre, :book
 ```
 
 This will produce the following HTML:
@@ -134,6 +134,25 @@ This will produce the following HTML:
     <td>推理</td>
   </tr>
 </table>
+```
+
+
+#### shikigami support
+
+When used with *[shikigami](https://github.com/jodeci/shikigami)*, *jurou* will default the above helpers to the current object when possible. This means that you can be more lazy:
+
+```
+# app/views/books/show.html.slim
+table
+  = jr_row_attr :title, @book.title
+  = jr_row_opt :genre, @book.genre
+  
+= jr_attr(:author)
+= jr_value :genre, @book.genre
+
+# app/views/books/_form.html.slim
+= simple_form_for @book do |f|
+  = f.input :genre, collection: jr_collection(:genre)
 ```
 
 ### jr\_page\_title 

@@ -19,6 +19,12 @@ describe Jurou::ViewHelpers do
       end
     end
 
+    context "when omitting the model" do
+      it "should look for the translation in :current_object" do
+        expect(@helper.jr_collection(:genre)).to include("奇幻" => :fantasy)
+      end
+    end
+
     context "when the locale file does not have matching data" do
       it "should raise an error" do
         expect { @helper.jr_collection(:no_attribute, :no_model) }.to raise_error(NoMethodError)
@@ -27,13 +33,13 @@ describe Jurou::ViewHelpers do
   end
 
   describe "#jr_attribute" do
-    context "when model is specified" do
+    context "when the locale file has the matching data" do
       it "should translate the attribute" do
         expect(@helper.jr_attribute(:director, :movie)).to eq "導演"
       end
     end
 
-    context "when model is not specified" do
+    context "when omitting the model" do
       it "should look for the translation in :current_object" do
         expect(@helper.jr_attribute(:genre)).to eq "類別"
       end
@@ -56,27 +62,59 @@ describe Jurou::ViewHelpers do
   describe "#jr_value" do
     context "when the locale file has the matching data" do
       it "should translate the value" do
-        expect(@helper.jr_value(:genre, :book, :fantasy)).to eq "奇幻"
+        expect(@helper.jr_value(:genre, :fantasy, :book)).to eq "奇幻"
+      end
+    end
+
+    context "when omitting the model" do
+      it "should look for the translation in :current_object" do
+        expect(@helper.jr_value(:genre, :fantasy)).to eq "奇幻"
       end
     end
 
     context "when the locale file does not have matching data" do
       it "should return an error message" do
-        expect(@helper.jr_value(:no_attribute, :no_model, :no_value)).to match(/\Atranslation missing:/)
+        expect(@helper.jr_value(:no_attribute, :no_value, :no_model)).to match(/\Atranslation missing:/)
       end
     end
   end
 
-  describe "#jr_table_row" do
-    context "when the value does not need translation" do
+  describe "#jr_table_row_for_attribute" do
+    context "when the locale file has the matching data" do
       it "should generate HTML with the original value" do
-        expect(@helper.jr_table_row(:author, :book, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+        expect(@helper.jr_table_row_for_attribute(:author, "東野圭吾", :book)).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
       end
     end
 
-    context "when the value needs translation" do
+    context "when omitting the model" do
+      it "should look for the translation in :current_object" do
+        expect(@helper.jr_table_row_for_attribute(:author, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+      end
+    end
+
+    context "when the locale file does not have matching data" do
+      it "should return an error message" do
+        expect(@helper.jr_table_row_for_attribute(:author, "東野圭吾", :movie)).to match(/translation missing:/)
+      end
+    end
+  end
+
+  describe "#jr_table_row_for_option" do
+    context "when the locale file has the matching data" do
       it "should generate HTML with the translated value" do
-        expect(@helper.jr_table_row(:genre, :book, :fantasy, :true)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+        expect(@helper.jr_table_row_for_option(:genre, :fantasy, :book)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+      end
+    end
+
+    context "when omitting the model" do
+      it "should look for the translation in :current_object" do
+        expect(@helper.jr_table_row_for_option(:genre, :fantasy)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+      end
+    end
+
+    context "when the locale file does not have matching data" do
+      it "should return an error message" do
+        expect(@helper.jr_table_row_for_option(:author, "東野圭吾", :movie)).to match(/translation missing:/)
       end
     end
   end

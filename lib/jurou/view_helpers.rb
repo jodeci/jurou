@@ -35,14 +35,23 @@ module Jurou
       I18n.t("jurou.#{@_model}.#{attribute}").invert
     end
 
-    def jr_table_row(attribute, model = nil, value = nil, translate = false)
+    def jr_table_row_for_attribute(attribute, value = nil, model = nil)
       jr_init_model(model)
       content_tag :tr do
         concat content_tag :th, jr_attribute(attribute, @_model)
-        concat content_tag :td, jr_init_value(attribute, value, translate)
+        concat content_tag :td, value
       end
     end
-    alias jr_row jr_table_row
+    alias jr_row_attr jr_table_row_for_attribute
+
+    def jr_table_row_for_option(attribute, value = nil, model = nil)
+      jr_init_model(model)
+      content_tag :tr do
+        concat content_tag :th, jr_attribute(attribute, @_model)
+        concat content_tag :td, jr_value(attribute, value, @_model)
+      end
+    end
+    alias jr_row_opt jr_table_row_for_option
 
     def jr_attribute(attribute, model = nil)
       jr_init_model(model)
@@ -50,7 +59,7 @@ module Jurou
     end
     alias jr_attr jr_attribute
 
-    def jr_value(attribute, model = nil, value = nil)
+    def jr_value(attribute, value = nil, model = nil)
       jr_init_model(model)
       I18n.t("jurou.#{@_model}.#{attribute}.#{value}")
     end
@@ -59,14 +68,6 @@ module Jurou
 
     def jr_init_model(model)
       @_model = model || current_object.model_name.param_key
-    end
-
-    def jr_init_value(attribute, value, translate)
-      if translate
-        jr_value(attribute, @_model, value)
-      else
-        value
-      end
     end
 
     def jr_page_title_translation_key(controller = controller_path, action = action_name)
