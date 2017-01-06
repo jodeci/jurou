@@ -93,22 +93,22 @@ describe Jurou::ViewHelpers do
     end
   end
 
-  describe "#jr_table_row_for_option" do
+  describe "#jr_table_row_for_value" do
     context "when the locale file has the matching data" do
       it "generates HTML with the translated value" do
-        expect(@helper.jr_table_row_for_option(:genre, :fantasy, :book)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+        expect(@helper.jr_table_row_for_value(:genre, :fantasy, :book)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
       end
     end
 
     context "when omitting the model" do
       it "fallbacks to the controller name" do
-        expect(@helper_no_model.jr_table_row_for_option(:genre, :fantasy)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+        expect(@helper_no_model.jr_table_row_for_value(:genre, :fantasy)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
       end
     end
 
     context "when the locale file does not have matching data" do
       it "returns an error message" do
-        expect(@helper.jr_table_row_for_option(:author, "東野圭吾", :movie)).to match(/translation missing:/)
+        expect(@helper.jr_table_row_for_value(:author, "東野圭吾", :movie)).to match(/translation missing:/)
       end
     end
   end

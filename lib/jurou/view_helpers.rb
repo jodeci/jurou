@@ -44,14 +44,14 @@ module Jurou
     end
     alias jr_row_attr jr_table_row_for_attribute
 
-    def jr_table_row_for_option(attribute, value = nil, model = nil)
+    def jr_table_row_for_value(attribute, value = nil, model = nil)
       jr_init_model(model)
       content_tag :tr do
         concat content_tag :th, jr_attribute(attribute, @_model)
         concat content_tag :td, jr_value(attribute, value, @_model)
       end
     end
-    alias jr_row_opt jr_table_row_for_option
+    alias jr_row_val jr_table_row_for_value
 
     def jr_attribute(attribute, model = nil)
       jr_init_model(model)
