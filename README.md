@@ -105,16 +105,16 @@ jr_value :genre, @book.genre, :book
 => "推理"
 ```
 
-### jr\_table\_row\_for\_attribute, jr\_table\_row\_for\_value
+### jr\_table\_row, jr\_table\_row\_translate\_value
 
-Or, if you're lazy enough like me, there's also `jr_table_row_attribute` and `jr_table_row_value` which takes advantage of `jr_attribute` and `jr_value` to make a quick and dirty table display. Shorthand `jr_row_attr` and `jr_row_val` also available. 
+Or, if you're lazy enough like me, there's also `jr_table_row` and `jr_table_row_translate_value` which takes advantage of `jr_attribute` and `jr_value` to make a quick and dirty table display. Shorthand `jr_row` and `jr_row_val` also available. 
 
 ```
 # app/views/books/show.html.slim
 table
-  = jr_table_row_for_attribute :title, @book.title, :book
-  = jr_table_row_for_attribute :author, @book.author, :book
-  = jr_table_row_for_value :genre, @book.genre, :book
+  = jr_table_row :title, @book.title, :book
+  = jr_table_row :author, @book.author, :book
+  = jr_table_row_translate_value :genre, @book.genre, :book
 ```
 
 This will produce the following HTML:
@@ -143,7 +143,7 @@ For the above helpers, you can even omit passing `:book` all together if you are
 ```
 # app/views/books/show.html.slim
 table
-  = jr_row_attr :title, @book.title
+  = jr_row :title, @book.title
   = jr_row_val :genre, @book.genre
 
 # app/views/books/index.html.slim

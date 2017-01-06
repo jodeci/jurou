@@ -35,23 +35,23 @@ module Jurou
       I18n.t("jurou.#{@_model}.#{attribute}").invert
     end
 
-    def jr_table_row_for_attribute(attribute, value = nil, model = nil)
+    def jr_table_row(attribute, value = nil, model = nil)
       jr_init_model(model)
       content_tag :tr do
         concat content_tag :th, jr_attribute(attribute, @_model)
         concat content_tag :td, value
       end
     end
-    alias jr_row_attr jr_table_row_for_attribute
+    alias jr_row jr_table_row
 
-    def jr_table_row_for_value(attribute, value = nil, model = nil)
+    def jr_table_row_translate_value(attribute, value = nil, model = nil)
       jr_init_model(model)
       content_tag :tr do
         concat content_tag :th, jr_attribute(attribute, @_model)
         concat content_tag :td, jr_value(attribute, value, @_model)
       end
     end
-    alias jr_row_val jr_table_row_for_value
+    alias jr_row_val jr_table_row_translate_value
 
     def jr_attribute(attribute, model = nil)
       jr_init_model(model)
