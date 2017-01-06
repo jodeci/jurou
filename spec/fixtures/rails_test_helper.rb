@@ -13,6 +13,7 @@ module Jurou
       @_jr_action = action
       @_jr_controller = controller
       @_jr_current_object = mock_current_object(options)
+      @_jr_params = {}
     end
 
     def mock_current_object(options)
