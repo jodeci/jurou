@@ -7,12 +7,9 @@ module Jurou
     include ActionView::Helpers
     include ActionView::Context
 
-    def initialize(action = nil, controller = "books", current_object = "book")
+    def initialize(action = nil, controller = "books")
       @_jr_controller = controller
       @_jr_action = action
-      if current_object
-        @_jr_current_object = OpenStruct.new(model_name: OpenStruct.new(param_key: current_object))
-      end
     end
 
     def action_name
@@ -23,6 +20,10 @@ module Jurou
       @_jr_controller
     end
 
+    def controller_name
+      @_jr_controller.to_s
+    end
+
     # we only need to return "content" for testing purposes
     def content_for(name, content = nil, options = {}, &block)
       if content || block_given?
@@ -31,11 +32,6 @@ module Jurou
           content = capture(&block)
         end
       end
-    end
-
-    # from shikigami
-    def current_object
-      @_jr_current_object
     end
   end
 end

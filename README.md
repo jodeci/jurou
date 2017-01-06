@@ -136,19 +136,21 @@ This will produce the following HTML:
 </table>
 ```
 
+#### Be more lazy!
 
-#### shikigami support
-
-When used with *[shikigami](https://github.com/jodeci/shikigami)*, *jurou* will default the above helpers to the current object when possible. This means that you can be more lazy:
+For the above helpers, you can even omit passing `:book` all together if you are following Rails naming convention:
 
 ```
 # app/views/books/show.html.slim
 table
   = jr_row_attr :title, @book.title
   = jr_row_opt :genre, @book.genre
-  
-= jr_attr(:author)
-= jr_value :genre, @book.genre
+
+# app/views/books/index.html.slim
+table
+  tr
+    td = jr_attr(:author)
+    td = jr_value :genre, @book.genre
 
 # app/views/books/_form.html.slim
 = simple_form_for @book do |f|
@@ -157,7 +159,7 @@ table
 
 ### jr\_page\_title 
 
-`jr_page_title` generates the page title based on the current controller and action. It will fall back to your app title when there is no match.
+`jr_page_title` generates the page title based on the current controller and action. It will fallback to your app title when there is no match.
  
 ```
 # app/views/layout/application.html.slim

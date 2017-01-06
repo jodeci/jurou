@@ -67,7 +67,7 @@ module Jurou
     private
 
     def jr_init_model(model)
-      @_model = model || current_object.model_name.param_key
+      @_model = model || controller_name.singularize
     end
 
     def jr_page_title_translation_key(controller = controller_path, action = action_name)
