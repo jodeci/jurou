@@ -141,19 +141,19 @@ This will produce the following HTML:
 For the above helpers, you can omit passing `:book` all together if you are following Rails naming convention:
 
 ```
-= jr_row(:title, @book.title)
+jr_row :title, @book.title
 => <tr><th>作者</th><td>神探伽利略</td></tr>
 
-= jr_row_val(:genre, @book.genre)
+jr_row_val :genre, @book.genre
 => <tr><th>類別</th><td>推理</td></tr>
 
-jr_attr(:author)
+jr_attr :author
 => 作者
 
-jr_value(:genre, @book.genre)
+jr_value :genre, @book.genre
 => 推理
 
-jr_collection(:genre)
+jr_collection :genre
 => { fantasy: "奇幻", detective: "推理", romance: "羅曼史", history: "歷史", manga: "漫畫" }
 ```
 
@@ -162,10 +162,10 @@ jr_collection(:genre)
 If you are using *[shikigami](https://github.com/jodeci/shikigami)*, *jurou* will fallback to the `current_object` whenever possible, so you can just write this and be done:
 
 ```
-= jr_row(:title)
+jr_row :title
 => <tr><th>作者</th><td>神探伽利略</td></tr>
 
-= jr_row_val(:genre)
+jr_row_val :genre
 => <tr><th>類別</th><td>推理</td></tr>
 ```
 
@@ -201,18 +201,18 @@ Use `jr_simple_title` when you need to manually get a page title, instead of rel
 
 ```
 # defaults to the current controller/action
-= jr_simple_title
+jr_simple_title
 => "書籍列表"
 
 # general label for a controller, same as jr_simple_title(:books, :_label)
-= jr_simple_title(:books)
+jr_simple_title(:books)
 => "我的書櫃"
 
 # specify controller and action
-= jr_simple_title(:books, :index)
+jr_simple_title(:books, :index)
 => "書籍列表"
 
 # controller with namespace
-= jr_simple_title("admin/sales", :index)
+jr_simple_title("admin/sales", :index)
 => "銷售管理"
 ```
