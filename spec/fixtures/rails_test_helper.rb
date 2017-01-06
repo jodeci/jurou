@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# monkey patching instead of creating a dummy app
+# FIXME: consider switching to a dummy app instead of monkey patching
 require "ostruct"
 module Jurou
   class RailsTestHelper
@@ -7,7 +7,7 @@ module Jurou
     include ActionView::Helpers
     include ActionView::Context
 
-    BOOK_DATA = { model: "book", data: { title: "神探伽利略", author: "東野圭吾", genre: "fantasy" } }
+    BOOK_DATA = { model: "book", id: 1, data: { title: "神探伽利略", author: "東野圭吾", genre: "fantasy" } }
 
     def initialize(action = nil, controller = "books", options = BOOK_DATA)
       @_jr_action = action
@@ -17,6 +17,7 @@ module Jurou
 
     def mock_current_object(options)
       return unless options
+      @_jr_params = { id: options[:id] }
       object = OpenStruct.new(model_name: OpenStruct.new(param_key: options[:model]))
       options[:data].map { |key, value| object[key] = value }
       object
@@ -37,6 +38,10 @@ module Jurou
     # shikigami
     def current_object
       @_jr_current_object
+    end
+
+    def params
+      @_jr_params
     end
 
     # we only need to return "content" for testing purposes

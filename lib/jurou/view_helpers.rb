@@ -70,7 +70,7 @@ module Jurou
       @_model =
         if model
           model
-        elsif current_object
+        elsif current_object and params[:id]
           current_object.model_name.param_key
         else
           controller_name.singularize
