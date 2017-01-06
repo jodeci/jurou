@@ -138,23 +138,35 @@ This will produce the following HTML:
 
 #### Be more lazy!
 
-For the above helpers, you can even omit passing `:book` all together if you are following Rails naming convention:
+For the above helpers, you can omit passing `:book` all together if you are following Rails naming convention:
 
 ```
-# app/views/books/show.html.slim
-table
-  = jr_row :title, @book.title
-  = jr_row_val :genre, @book.genre
+= jr_row(:title, @book.title)
+=> <tr><th>作者</th><td>神探伽利略</td></tr>
 
-# app/views/books/index.html.slim
-table
-  tr
-    td = jr_attr(:author)
-    td = jr_value :genre, @book.genre
+= jr_row_val(:genre, @book.genre)
+=> <tr><th>類別</th><td>推理</td></tr>
 
-# app/views/books/_form.html.slim
-= simple_form_for @book do |f|
-  = f.input :genre, collection: jr_collection(:genre)
+jr_attr(:author)
+=> 作者
+
+jr_value(:genre, @book.genre)
+=> 推理
+
+jr_collection(:genre)
+=> { fantasy: "奇幻", detective: "推理", romance: "羅曼史", history: "歷史", manga: "漫畫" }
+```
+
+#### More laziness with shikigami
+
+If you are using *[shikigami](https://github.com/jodeci/shikigami)*, *jurou* will fallback to the `current_object` whenever possible, so you can just write this and be done:
+
+```
+= jr_row(:title)
+=> <tr><th>作者</th><td>神探伽利略</td></tr>
+
+= jr_row_val(:genre)
+=> <tr><th>類別</th><td>推理</td></tr>
 ```
 
 ### jr\_page\_title 

@@ -18,4 +18,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport", "~> 5.0"
   spec.add_dependency "actionview", "~> 5.0"
   spec.add_dependency "i18n", "~> 0.7"
+  spec.add_dependency "shikigami", "~> 0.1"
 end

@@ -39,7 +39,7 @@ module Jurou
       jr_init_model(model)
       content_tag :tr do
         concat content_tag :th, jr_attribute(attribute, @_model)
-        concat content_tag :td, value
+        concat content_tag :td, jr_init_value(attribute, value)
       end
     end
     alias jr_row jr_table_row
@@ -61,13 +61,24 @@ module Jurou
 
     def jr_value(attribute, value = nil, model = nil)
       jr_init_model(model)
-      I18n.t("jurou.#{@_model}.#{attribute}.#{value}")
+      I18n.t("jurou.#{@_model}.#{attribute}.#{jr_init_value(attribute, value)}")
     end
 
     private
 
     def jr_init_model(model)
-      @_model = model || controller_name.singularize
+      @_model =
+        if model
+          model
+        elsif current_object
+          current_object.model_name.param_key
+        else
+          controller_name.singularize
+        end
+    end
+
+    def jr_init_value(attribute, value)
+      value || current_object.send(attribute)
     end
 
     def jr_page_title_translation_key(controller = controller_path, action = action_name)

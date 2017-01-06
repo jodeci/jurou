@@ -11,18 +11,27 @@ describe Jurou::ViewHelpers do
     I18n.load_path << "spec/fixtures/zh-TW.yml"
     @helper = Jurou::RailsTestHelper.new
     @helper_no_model = Jurou::RailsTestHelper.new(nil, :books)
+    @helper_no_object = Jurou::RailsTestHelper.new(nil, :books, nil)
   end
 
   describe "#jr_collection" do
-    context "when the locale file has the matching data" do
-      it "generates a translated hash" do
+    describe "jr_collection(attribute, model)" do
+      it "looks for the specified translation" do
         expect(@helper.jr_collection(:genre, :book)).to include("奇幻" => :fantasy)
       end
     end
 
-    context "when omitting the model" do
-      it "fallbacks to the controller name" do
-        expect(@helper_no_model.jr_collection(:genre)).to include("奇幻" => :fantasy)
+    describe "jr_collection(attribute)" do
+      context "with current_object" do
+        it "fallbacks to current_object" do
+          expect(@helper_no_model.jr_collection(:genre)).to include("奇幻" => :fantasy)
+        end
+      end
+
+      context "without current_object" do
+        it "fallbacks to controller_name" do
+          expect(@helper_no_object.jr_collection(:genre)).to include("奇幻" => :fantasy)
+        end
       end
     end
 
@@ -34,15 +43,23 @@ describe Jurou::ViewHelpers do
   end
 
   describe "#jr_attribute" do
-    context "when the locale file has the matching data" do
-      it "translates the attribute" do
+    describe "jr_attr(attribute, model)" do
+      it "looks for the specified translation" do
         expect(@helper.jr_attribute(:director, :movie)).to eq "導演"
       end
     end
 
-    context "when omitting the model" do
-      it "fallbacks to the controller name" do
-        expect(@helper_no_model.jr_attribute(:genre)).to eq "類別"
+    describe "jr_attr(attribute)" do
+      context "with current_object" do
+        it "fallbacks to current_object" do
+          expect(@helper_no_model.jr_attribute(:genre)).to eq "類別"
+        end
+      end
+
+      context "without current_object" do
+        it "fallbacks to controller_name" do
+          expect(@helper_no_object.jr_attribute(:genre)).to eq "類別"
+        end
       end
     end
 
@@ -54,15 +71,23 @@ describe Jurou::ViewHelpers do
   end
 
   describe "#jr_value" do
-    context "when the locale file has the matching data" do
-      it "translates the value" do
+    describe "jr_vaue(attribute, value, model)" do
+      it "looks for the specified translation" do
         expect(@helper.jr_value(:genre, :fantasy, :book)).to eq "奇幻"
       end
     end
 
-    context "when omitting the model" do
-      it "fallbacks to the controller name" do
-        expect(@helper.jr_value(:genre, :fantasy)).to eq "奇幻"
+    describe "jr_value(attribute, value)" do
+      context "with current_object" do
+        it "fallbacks to current_object" do
+          expect(@helper_no_model.jr_value(:genre, :fantasy)).to eq "奇幻"
+        end
+      end
+
+      context "without current_object" do
+        it "fallbacks to controller_name" do
+          expect(@helper_no_object.jr_value(:genre, :fantasy)).to eq "奇幻"
+        end
       end
     end
 
@@ -74,15 +99,37 @@ describe Jurou::ViewHelpers do
   end
 
   describe "#jr_table_row" do
-    context "when the locale file has the matching data" do
-      it "generates HTML with the original value" do
+    describe "jr_row(attribute, value, model)" do
+      it "looks for the specified translation" do
         expect(@helper.jr_table_row(:author, "東野圭吾", :book)).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
       end
     end
 
-    context "when omitting the model" do
-      it "fallbacks to the controller name" do
-        expect(@helper_no_model.jr_table_row(:author, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+    describe "jr_row(attribute, value)" do
+      context "with current_object" do
+        it "fallbacks to current_object" do
+          expect(@helper_no_model.jr_table_row(:author, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+        end
+      end
+
+      context "without current_object" do
+        it "fallbacks to controller_path" do
+          expect(@helper_no_object.jr_table_row(:author, "東野圭吾")).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+        end
+      end
+    end
+
+    describe "jr_row(attribute)" do
+      context "with current_object" do
+        it "fallbacks to current_object.attribute" do
+          expect(@helper_no_model.jr_table_row(:author)).to eq "<tr><th>作者</th><td>東野圭吾</td></tr>"
+        end
+      end
+
+      context "without current_object" do
+        it "raises an error" do
+          expect { @helper_no_object.jr_table_row(:author) }.to raise_error(NoMethodError)
+        end
       end
     end
 
@@ -94,15 +141,37 @@ describe Jurou::ViewHelpers do
   end
 
   describe "#jr_table_row_translate_value" do
-    context "when the locale file has the matching data" do
-      it "generates HTML with the translated value" do
+    describe "jr_row_val(attribute, value, model)" do
+      it "looks for the specified translation" do
         expect(@helper.jr_table_row_translate_value(:genre, :fantasy, :book)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
       end
     end
 
-    context "when omitting the model" do
-      it "fallbacks to the controller name" do
-        expect(@helper_no_model.jr_table_row_translate_value(:genre, :fantasy)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+    describe "jr_row_val(attribute, value)" do
+      context "with current_object" do
+        it "fallbacks to current_object" do
+          expect(@helper_no_model.jr_table_row_translate_value(:genre, :fantasy)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+        end
+      end
+
+      context "without current_object" do
+        it "fallbacks to collector_name" do
+          expect(@helper_no_object.jr_table_row_translate_value(:genre, :fantasy)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+        end
+      end
+    end
+
+    describe "jr_row_val(attribute)" do
+      context "with current_object" do
+        it "fallbacks to current_object" do
+          expect(@helper_no_model.jr_table_row_translate_value(:genre)).to eq "<tr><th>類別</th><td>奇幻</td></tr>"
+        end
+      end
+
+      context "without current_object" do
+        it "fallbacks to collector_name" do
+          expect { @helper_no_object.jr_table_row_translate_value(:genre) }.to raise_error(NoMethodError)
+        end
       end
     end
 
