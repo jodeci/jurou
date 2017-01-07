@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 require "rails/all"
 require "rspec/rails"
-require "dummy/config/environment"
 require "spec_helper"
+require "dummy/config/environment"
 
 RSpec.configure do |config|
+  config.include ApplicationHelper
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
