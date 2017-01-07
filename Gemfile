@@ -1,10 +1,15 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 gemspec
 
 group :test, :development do
   gem "bundler"
   gem "rake"
+  gem "rails"
   gem "rspec"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem "database_cleaner"
+  gem "sqlite3"
 end
 
 group :test do

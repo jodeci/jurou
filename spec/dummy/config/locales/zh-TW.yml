@@ -3,6 +3,10 @@ zh-TW:
     book:
       genre:
         fantasy: 奇幻
+        detective: 推理
+        romance: 羅曼史
+        history: 歷史
+        manga: 漫畫
 
     app_title: 翻譯蒟蒻
 
