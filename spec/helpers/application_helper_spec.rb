@@ -3,8 +3,8 @@ require "rails_helper"
 
 describe ApplicationHelper, type: :helper do
   before do
-    controller.stub(:controller_path).and_return("books")
-    controller.stub(:controller_name).and_return("book")
+    allow(controller).to receive(:controller_path) { "books" }
+    allow(controller).to receive(:controller_name) { "book" }
     allow(helper).to receive(:current_object) { NilClass }
   end
 
@@ -54,7 +54,7 @@ describe ApplicationHelper, type: :helper do
     context "when current_object is available" do
       before do
         book = FactoryGirl.create(:book)
-        controller.stub(:params).and_return(id: 1)
+        allow(controller).to receive(:params) { { id: 1 } }
         allow(helper).to receive(:current_object) { book }
       end
 
@@ -113,16 +113,16 @@ describe ApplicationHelper, type: :helper do
   describe "#jr_page_title" do
     describe "GET admin/sales#index" do
       it "generates the title based on the current controller and action" do
-        controller.stub(:controller_path).and_return("admin/sales")
-        controller.stub(:action_name).and_return("index")
+        allow(controller).to receive(:controller_path) { "admin/sales" }
+        allow(controller).to receive(:action_name) { "index" }
         expect(helper.jr_page_title).to eq "銷售管理 | 翻譯蒟蒻"
       end
     end
 
     describe "GET no_controller/#no_action" do
       it "fallbacks to the app title" do
-        controller.stub(:controller_path).and_return(:no_controller)
-        controller.stub(:action_name).and_return(:no_action)
+        allow(controller).to receive(:controller_path) { :no_controller }
+        allow(controller).to receive(:action_name) { :no_action }
         expect(helper.jr_page_title).to eq "翻譯蒟蒻"
       end
     end
@@ -130,8 +130,8 @@ describe ApplicationHelper, type: :helper do
 
   describe "#jr_content_for_page_title" do
     before do
-      controller.stub(:controller_path).and_return(:books)
-      controller.stub(:action_name).and_return(:edit)
+      allow(controller).to receive(:controller_path) { :books }
+      allow(controller).to receive(:action_name) { :edit }
     end
 
     context "when given a value" do
@@ -164,8 +164,8 @@ describe ApplicationHelper, type: :helper do
 
     context "when given no arguments" do
       it "defaults to the current controller and action" do
-        controller.stub(:controller_path).and_return(:books)
-        controller.stub(:action_name).and_return(:edit)
+        allow(controller).to receive(:controller_path) { :books }
+        allow(controller).to receive(:action_name) { :edit }
         expect(helper.jr_simple_title).to eq "修改書籍"
       end
     end
