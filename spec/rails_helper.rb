@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require "rails/all"
-require "rspec/rails"
 require "spec_helper"
 require "dummy/config/environment"
+require "rspec/rails"
 
 RSpec.configure do |config|
   config.include ApplicationHelper
