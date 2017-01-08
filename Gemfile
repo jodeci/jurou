@@ -4,7 +4,6 @@ gemspec
 group :test, :development do
   gem "bundler"
   gem "rake"
-  gem "rails"
   gem "rspec"
   gem "rspec-rails"
   gem "factory_girl_rails"
