@@ -5,7 +5,6 @@ group :test, :development do
   gem "bundler"
   gem "rake"
   gem "rails"
-  # gem "rails-controller-testing"
   gem "rspec"
   gem "rspec-rails"
   gem "factory_girl_rails"
