@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name = "jurou"
   spec.version = Jurou::VERSION
   spec.date = "2016-10-28"
-  spec.description = "very early devlopment, use at own risk XD"
+  spec.description = "collection of i18n helpers for rails app"
   spec.summary = "i18n view helpers"
   spec.authors = ["Tsehau Chao"]
   spec.email = ["jodeci@5xruby.tw"]
