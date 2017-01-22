@@ -2,19 +2,12 @@
 module Jurou
   module ViewHelpers
     def jr_page_title(app_title = "jurou.app_title", divider = "|")
-      "#{t(jr_page_title_translation_key, raise: true)} #{divider} #{t(app_title)}"
-    rescue
-      t(app_title)
+      "#{@jr_title}#{jr_page_title_by_controller_action(app_title, divider)}"
     end
 
     def jr_content_for_page_title(text = nil, divider = "|")
-      content_for(:jr_title) do
-        if text
-          "#{text} #{divider} #{jr_page_title}"
-        else
-          jr_page_title
-        end
-      end
+      @jr_title = "#{text} #{divider} " if text
+      nil
     end
     alias jr_title jr_content_for_page_title
 
@@ -79,6 +72,12 @@ module Jurou
 
     def jr_init_value(attribute, value)
       value || current_object.send(attribute)
+    end
+
+    def jr_page_title_by_controller_action(app_title, divider)
+      "#{t(jr_page_title_translation_key, raise: true)} #{divider} #{t(app_title)}"
+    rescue
+      t(app_title)
     end
 
     def jr_page_title_translation_key(controller = controller_path, action = action_name)

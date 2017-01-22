@@ -137,14 +137,14 @@ describe ApplicationHelper, type: :helper do
     context "when given a value" do
       it "prepends to #jr_page_title" do
         helper.jr_content_for_page_title("神探伽利略")
-        expect(view.content_for(:jr_title)).to eq "神探伽利略 | 修改書籍 | 翻譯蒟蒻"
+        expect(helper.jr_page_title).to eq "神探伽利略 | 修改書籍 | 翻譯蒟蒻"
       end
     end
 
     context "when not given a value" do
       it "fallbacks to #jr_page_title" do
         helper.jr_content_for_page_title
-        expect(view.content_for(:jr_title)).to eq "修改書籍 | 翻譯蒟蒻"
+        expect(helper.jr_page_title).to eq "修改書籍 | 翻譯蒟蒻"
       end
     end
   end

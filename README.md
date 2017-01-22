@@ -175,7 +175,7 @@ jr_row_val :genre
  
 ```
 # app/views/layout/application.html.slim
-= title content_for?(:jr_title) ? yield(:jr_title) : jr_page_title
+title = jr_page_title
 
 # BooksController#index
 => "書籍列表 | 翻譯蒟蒻"
